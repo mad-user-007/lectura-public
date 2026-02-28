@@ -1,26 +1,131 @@
 @import "tailwindcss";
 
+/* Optional: make form controls match theme */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+    /* Map Tailwind tokens to CSS variables */
+    --color-background: var(--bg);
+    --color-foreground: var(--fg);
+
+    --color-skeleton-background: var(--skeleton-bg);
+
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-fg);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-fg);
+
+    --color-border: var(--border);
+    --color-ring: var(--ring);
+
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-fg);
+
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-fg);
+
+    --radius-lg: 14px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Light */
+:root {
+    --bg: #ffffff;
+    --fg: #0b1220;
+
+    --skeleton-bg: #e5e7eb;
+
+    --muted: #f3f5f7;
+    --muted-fg: #556070;
+
+    --card: #ffffff;
+    --card-fg: #0b1220;
+
+    --border: #e5e7eb;
+    --ring: #94a3b8;
+
+    --primary: #2563eb;
+    --primary-fg: #ffffff;
+
+    --accent: #0ea5e9;
+    --accent-fg: #001018;
+
+    color-scheme: light;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Dark (activated by class on <html>) */
+.dark {
+    --bg: #0b1220;
+    --fg: #e5eaf3;
+
+    --skeleton-bg: #374151;
+
+    --muted: #111b2e;
+    --muted-fg: #a3afc2;
+
+    --card: #0e1830;
+    --card-fg: #e5eaf3;
+
+    --border: #1f2a44;
+    --ring: #3b82f6;
+
+    --primary: #3b82f6;
+    --primary-fg: #071225;
+
+    --accent: #22c55e;
+    --accent-fg: #04110a;
+
+    color-scheme: dark;
+}
+
+/* Rehype Pretty Code: keep token colors and switch light/dark via Shiki vars */
+[data-rehype-pretty-code-fragment],
+[data-rehype-pretty-code-figure] {
+    margin: 0;
+}
+
+pre[data-theme*=" "] {
+    color: var(--shiki-light) !important;
+    background-color: var(--shiki-light-bg) !important;
+}
+
+pre[data-theme*=" "] span {
+    color: var(--shiki-light) !important;
+}
+
+pre[data-theme*=" "] code {
+    background: transparent !important;
+}
+
+.dark pre[data-theme*=" "] {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+}
+
+.dark pre[data-theme*=" "] span {
+    color: var(--shiki-dark) !important;
+}
+
+/* KaTeX should inherit theme foreground and allow horizontal scroll on mobile */
+.katex {
+    color: var(--fg);
+}
+
+.katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-block: 0.25rem;
+}
+
+/* Tabbed code blocks should render as a single card with tabs toolbar */
+[data-mdx-tabs-panel] .mdx-code-block {
+    margin: 0;
+    border: 0;
+    background: transparent;
+}
+
+[data-mdx-tabs-panel] .mdx-code-toolbar {
+    display: none;
 }
